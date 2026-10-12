@@ -1,6 +1,12 @@
 import requests
 
-url = "https://api.open-meteo.com/v1/forecast?latitude=36.3134&longitude=-82.3535&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,wind_speed_10m,weather_code"
+print("Welcome to Jonathan's simple weather application! To use the app you'll need to enter the lat and lon of your local area!")
+
+lat = input("lat: ")
+lon = input("long: ")
+
+
+url = f"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,wind_speed_10m,weather_code"
 
 response = requests.get(url)
 
