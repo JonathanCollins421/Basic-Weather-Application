@@ -4,9 +4,20 @@ print("Welcome to Jonathan's simple weather application! To use the app you'll n
 
 lat = input("lat: ")
 lon = input("long: ")
+units = input("The default units are imperial do you want to change to metric? (y for yes):")
+temp_unit_symbol = "°F"
+speed_unit_symbol = "mph"
+temp_unit_request = "fahrenheit"
+speed_unit_request = "mph"
+
+if units == "y":
+     temp_unit_symbol = "°c"
+     speed_unit_symbol = "km/h"
+     temp_unit_request = "celsius"
+     speed_unit_request = "kmh"
 
 
-url = f"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,wind_speed_10m,weather_code"
+url = f"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,wind_speed_10m,weather_code&temperature_unit={temp_unit_request}&wind_speed_unit={speed_unit_request}"
 
 response = requests.get(url)
 
@@ -49,12 +60,12 @@ def get_conditions(code: int):
 
 conditions = get_conditions(data["current"]["weather_code"])
 
-print("Your local weather!")
+print(f"\nYour local weather!")
 print("-------------------")
-print(f"Current temperature: {data["current"]["temperature_2m"]}")
-print(f"Feels Like: {data["current"]["apparent_temperature"]}")
-print(f"Humidity: {data["current"]["relative_humidity_2m"]}")
-print(f"Wind Speed: {data["current"]["wind_speed_10m"]}")
+print(f"Current temperature: {data["current"]["temperature_2m"]}{temp_unit_symbol}")
+print(f"Feels Like: {data["current"]["apparent_temperature"]}{temp_unit_symbol}")
+print(f"Humidity: {data["current"]["relative_humidity_2m"]}%")
+print(f"Wind Speed: {data["current"]["wind_speed_10m"]} {speed_unit_symbol}")
 print(f"Conditions: {conditions}")
 
 
